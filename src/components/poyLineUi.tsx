@@ -9,6 +9,8 @@ import { OSRMResponse } from "../services/types";
 import { useMainContext } from "../context/mainContext";
 import DrawerComp from "./drawerComp";
 import SideInfoComp from "./sideInfoComp";
+import { FeatureCollection } from "geojson";
+
 
 const PoyLineUi = () => {
     const map = useMap();
@@ -109,7 +111,7 @@ const PoyLineUi = () => {
             <SideInfoComp />
 
 
-            {selection[0] && selection[1] && (
+            {/* {selection[0] && selection[1] && (
                 <GeoJSON
                     data={{
                         type: "FeatureCollection",
@@ -127,6 +129,32 @@ const PoyLineUi = () => {
                                 },
                             })),
                     }}
+                />
+            )} */}
+
+            {selection[0] && selection[1] && (
+                <GeoJSON
+                    data={{
+                        type: "FeatureCollection",
+                        features: IranGeo.features
+                            .filter((item) => {
+                                const coord = `${item.geometry.coordinates[0]},${item.geometry.coordinates[1]}`;
+                                return selection.includes(coord);
+                            })
+                            .map((item) => {
+                                return {
+                                    type: "Feature",
+                                    geometry: {
+                                        type: "Point",
+                                        coordinates: item.geometry.coordinates,
+                                    },
+                                    properties: {
+                                        name: item?.properties?.name,
+                                    },
+                                };
+                            }),
+                    } as FeatureCollection
+                    }
                 />
             )}
 

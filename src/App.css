@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+/* -------------- Fonts ------------- */
+
+@font-face {
+  font-family: "IRANSansX-Bold";
+  font-weight: 900;
+  font-display: swap;
+  src: url("./assets/fonts/IRANSansX-Bold.woff2") format("woff");
+}
+
+@font-face {
+  font-family: "IRANSansX-Medium";
+  font-weight: 700;
+  font-display: swap;
+  src: url("./assets/fonts/IRANSansX-Medium.woff2") format("woff");
+}
+
+.IRANSansX-Bold {
+  font-family: IRANSansX-Bold !important;
+}
+
+.IRANSansX-Medium {
+  font-family: IRANSansX-Medium !important;
+}
+
+* {
+  font-family: IRANSansX-Medium !important;
+}
+
+/* -------------- Hidden Area ------------- */
+
+.leaflet-touch .leaflet-control-layers-toggle {
+  display: none !important;
+}
+
+.leaflet-container .leaflet-control-attribution {
+  display: none !important;
+}

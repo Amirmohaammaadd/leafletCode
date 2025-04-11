@@ -10,6 +10,7 @@ import { useMainContext } from "../context/mainContext";
 import DrawerComp from "./drawerComp";
 import SideInfoComp from "./sideInfoComp";
 import { FeatureCollection } from "geojson";
+import L from 'leaflet';
 
 
 const PoyLineUi = () => {
@@ -52,7 +53,7 @@ const PoyLineUi = () => {
                 setDataInPolyline({ polyLineData, distance, duration });
                 map.flyToBounds(dataPolyline as [number, number][]);
             } catch (error) {
-                console.error("Error fetching polyline:", error);
+                console.error(error);
             } finally {
                 setLoading(false);
             }
@@ -88,6 +89,12 @@ const PoyLineUi = () => {
             },
         },
     ];
+
+    const customIcon = new L.Icon({
+        iconUrl: '/icons/loc.svg',
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+    });
 
     return (
         <>
@@ -155,6 +162,10 @@ const PoyLineUi = () => {
                             }),
                     } as FeatureCollection
                     }
+
+                    pointToLayer={(_, latlng) => {
+                        return L.marker(latlng, { icon: customIcon });
+                    }}
                 />
             )}
 
@@ -163,9 +174,6 @@ const PoyLineUi = () => {
             )}
 
             <Spin spinning={loading} fullscreen tip={"لطفا شکیبا باشید"} size="large" />
-
-
-
 
         </>
     );
